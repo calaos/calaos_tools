@@ -29,6 +29,7 @@
 #include "modbus.h"
 #include <errno.h>
 #include <signal.h>
+#include <unistd.h>
 
 using namespace std;
 
@@ -62,7 +63,6 @@ int main(int argc, char **argv)
 {
         cout << "*** [ Calaos Wago Simulator ] ***" << endl << endl;
 
-        eina_init();
         ecore_init();
         ecore_con_init();
 
@@ -87,14 +87,13 @@ int main(int argc, char **argv)
         cout << "Waiting for incomming connection..." << endl;
         ecore_main_loop_begin();
 
-        close(server_socket);
+        ::close(server_socket);
         ecore_con_server_del(udp_server);
 
         modbus_free(ctx);
         modbus_mapping_free(mb_mapping);
         ecore_con_shutdown();
         ecore_shutdown();
-        eina_shutdown();
 
         return 0;
 }
@@ -193,7 +192,7 @@ Eina_Bool _modbus_client_handler(void *data, Ecore_Fd_Handler *handler)
         {
                 /* Connection closed by the client, end of server */
                 printf("Connection closed on socket %d\n", fd);
-                close(fd);
+                ::close(fd);
 
                 ecore_main_fd_handler_del(handler);
         }
