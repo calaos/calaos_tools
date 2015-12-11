@@ -26,10 +26,10 @@ def configure(conf):
         conf.check_cfg(package='ecore', args=['ecore >= 1.0.0', '--libs', '--cflags'])
         conf.check_cfg(package='ecore-file', args='--libs --cflags')
         conf.check_cfg(package='ecore-con', args='--libs --cflags')
-        conf.check_cfg(package='log4cpp', args='--libs --cflags')
+        #conf.check_cfg(package='log4cpp', args='--libs --cflags')
         conf.check_cfg(package='jansson', args='--libs --cflags')
 
-        conf.check_cxx(lib='pthread', use='PTHREAD', cxxflags='-O2', mandatory=True)
+#        conf.check_cxx(lib='pthread', use='PTHREAD', cxxflags='-O2', mandatory=True)
 
         if conf.options.curldir:
                 curl_config = conf.options.curldir + '/curl-config'
