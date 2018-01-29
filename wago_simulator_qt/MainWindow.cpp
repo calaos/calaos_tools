@@ -134,9 +134,9 @@ void MainWindow::on_pushButton_clicked()
     modbusDevice->setServerAddress(1);
     if (!modbusDevice->connectDevice())
     {
+        statusBar()->showMessage(tr("Connect failed: ") + modbusDevice->errorString(), 5000);
         delete modbusDevice;
         modbusDevice = nullptr;
-        statusBar()->showMessage(tr("Connect failed: ") + modbusDevice->errorString(), 5000);
     }
 
     udpListenSocket = new QUdpSocket(this);
